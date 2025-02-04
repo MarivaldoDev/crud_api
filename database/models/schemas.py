@@ -11,8 +11,7 @@ class User(BaseModel):
     password: str
 
     class Config:
-        orm_mode = True
-
+        from_attributes = True
 
 class UserPublic(BaseModel):
     id: int
@@ -20,10 +19,15 @@ class UserPublic(BaseModel):
     email: EmailStr
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserUpdate(BaseModel):
     username: str = None
     email: EmailStr = None
     password: str = None
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
