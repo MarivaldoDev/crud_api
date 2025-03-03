@@ -9,13 +9,12 @@ from sqlalchemy.orm import Session
 from database.config_db import get_db
 from database.banco import UserDB
 from http import HTTPStatus
+from settings import Settings
 
 
 pwd_context = PasswordHash.recommended()
+settings = Settings()
 
-SECRET_KEY  = 'secret_key'
-ALGORITHM = 'HS256'
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
@@ -29,16 +28,16 @@ def create_access_token(data: dict):
     to_encode = data.copy()
 
     expire = datetime.now(tz=ZoneInfo('UTC')) + timedelta(
-        minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+        minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
     )
 
     to_encode.update({"exp": expire})
-    encode_jwt = encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encode_jwt = encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
     return encode_jwt
 
 
-def get_current_user(session: Session = Depends(get_db), token: str = Depends(OAuth2PasswordBearer(tokenUrl="token"))):
+def get_current_user(session: Session = Depends(get_db), token: str = Depends(OAuth2PasswordBearer(tokenUrl="auth/token"))):
     credentials_exception = HTTPException(
         status_code=HTTPStatus.UNAUTHORIZED,
         detail="Não foi possível validar as credenciais",
@@ -46,7 +45,7 @@ def get_current_user(session: Session = Depends(get_db), token: str = Depends(OA
     )
     
     try:
-        payload = decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         username = payload.get("sub")
         
         if not username:
