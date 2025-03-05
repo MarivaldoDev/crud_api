@@ -2,7 +2,7 @@ from pwdlib import PasswordHash
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from jwt import encode, decode
-from jwt.exceptions import PyJWKError
+from jwt.exceptions import PyJWKError, DecodeError
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -10,6 +10,7 @@ from database.config_db import get_db
 from database.banco import UserDB
 from http import HTTPStatus
 from settings import Settings
+
 
 
 pwd_context = PasswordHash.recommended()
@@ -50,7 +51,7 @@ def get_current_user(session: Session = Depends(get_db), token: str = Depends(OA
         
         if not username:
             raise credentials_exception
-    except PyJWKError:
+    except DecodeError:
         raise credentials_exception
 
     user = session.query(UserDB).filter(UserDB.email == username).first()

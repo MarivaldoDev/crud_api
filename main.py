@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from database.models.schemas import Message
 from http import HTTPStatus
 from database.config_db import SessionLocal, engine, Base
-from routers import users, auth
+from routers import users, auth, todos
 
 
 Base.metadata.create_all(bind=engine)
@@ -19,6 +19,7 @@ def get_db():
 app = FastAPI(title="API de Usuários")
 app.include_router(users.router)
 app.include_router(auth.router)
+app.include_router(todos.router)
 
 
 # PÁGINA INICIAL
