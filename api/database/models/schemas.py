@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from database.banco import TodoState
+from api.database.banco import TodoState
 
 class Message(BaseModel):
     message: str

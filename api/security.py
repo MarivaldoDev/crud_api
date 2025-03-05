@@ -6,10 +6,10 @@ from jwt.exceptions import PyJWKError, DecodeError
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
-from database.config_db import get_db
-from database.banco import UserDB
+from api.database.config_db import get_db
+from api.database.banco import UserDB
 from http import HTTPStatus
-from settings import Settings
+from api.settings import Settings
 
 
 

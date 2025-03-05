@@ -1,4 +1,4 @@
-from security import create_access_token, settings
+from api.security import create_access_token, settings
 from jwt import decode
 
 

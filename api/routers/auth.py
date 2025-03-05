@@ -2,10 +2,10 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from database.banco import UserDB
-from security import verify_password, create_access_token, get_current_user
-from database.config_db import get_db
-from database.models.schemas import Token
+from api.database.banco import UserDB
+from api.security import verify_password, create_access_token, get_current_user
+from api.database.config_db import get_db
+from api.database.models.schemas import Token
 
 
 

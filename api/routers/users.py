@@ -1,12 +1,12 @@
 from fastapi import APIRouter
 from fastapi import HTTPException, Depends
-from database.models.schemas import Message, User, UserPublic, UserUpdate
-from database.banco import UserDB
+from api.database.models.schemas import Message, User, UserPublic, UserUpdate
+from api.database.banco import UserDB
 from sqlalchemy.orm import Session
 from http import HTTPStatus
 from typing import Annotated
-from security import get_password_hash, verify_password, create_access_token, get_current_user
-from database.config_db import get_db
+from api.security import get_password_hash, verify_password, create_access_token, get_current_user
+from api.database.config_db import get_db
 
 
 router = APIRouter(prefix='/users', tags=['users'])

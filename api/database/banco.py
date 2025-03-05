@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, func
-from datetime import datetime
-from database.config_db import Base
+from api.database.config_db import Base
 from enum import Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 

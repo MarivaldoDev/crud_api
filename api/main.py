@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from database.models.schemas import Message
+from api.database.models.schemas import Message
 from http import HTTPStatus
-from database.config_db import SessionLocal, engine, Base
-from routers import users, auth, todos
+from api.database.config_db import SessionLocal, engine, Base
+from api.routers import users, auth, todos
 
 
 Base.metadata.create_all(bind=engine)

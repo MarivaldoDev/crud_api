@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends
 from fastapi.exceptions import HTTPException
-from database.config_db import get_db
+from api.database.config_db import get_db
 from typing import Annotated
 from http import HTTPStatus 
 from sqlalchemy.orm import Session
-from database.banco import UserDB, Todo
+from api.database.banco import UserDB, Todo
 from sqlalchemy import select
-from security import get_current_user
-from database.models.schemas import TodoPublic, TodoSchema, TodoList, Message, TodoUpdate
+from api.security import get_current_user
+from api.database.models.schemas import TodoPublic, TodoSchema, TodoList, Message, TodoUpdate
 
 
 router = APIRouter(prefix="/todos", tags=["todos"])
